@@ -20,9 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
       body: Container(
         constraints: const BoxConstraints.expand(),
         decoration: BoxDecoration(
