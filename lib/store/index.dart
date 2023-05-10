@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:my_app/utils/storage.dart';
 
 class AppState extends ChangeNotifier {
-  var initialized = true;
-  var isLoggedIn = false;
+  bool initialized = true;
+  bool isLoggedIn = false;
   var _userInfo;
 
   get userInfo => _userInfo;
