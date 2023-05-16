@@ -2,53 +2,66 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_app/layouts/MainLayout/MainLayout.dart';
 import 'package:my_app/screens/auth/login/login.dart';
+import 'package:my_app/screens/auth/register/register.dart';
 import 'package:my_app/screens/home/home.dart';
 import 'package:my_app/screens/settings/settings.dart';
 import 'package:my_app/screens/splash/splash.dart';
-import 'package:my_app/store/index.dart';
 import 'package:my_app/utils/route-utils.dart';
-import 'package:provider/provider.dart';
 
-final GoRouter router = GoRouter(
-    initialLocation: APP_PAGE.home.toPath,
+import '../store/index.dart';
+
+class AppRouter {
+  late AppState appState;
+  AppRouter(this.appState);
+
+  late final GoRouter goRouter = GoRouter(
+    refreshListenable: appState,
+    debugLogDiagnostics: true,
+    initialLocation: AppPage.main.toPath,
     routes: [
       GoRoute(
-        name: APP_PAGE.main.toName,
-        path: APP_PAGE.main.toPath,
-        builder: (context, state) => const MainLayout(),
+          name: AppPage.main.toName,
+          path: AppPage.main.toPath,
+          builder: (context, state) => const MainLayout(),
+          redirect: (BuildContext context, GoRouterState state) {
+            final isLoggedIn = appState.isLoggedIn;
+            if (!isLoggedIn) return AppPage.login.toPath;
+
+            return null;
+          },
+          routes: [
+            GoRoute(
+              name: AppPage.home.toName,
+              path: AppPage.home.toPath,
+              builder: (context, state) => const HomeScreen(),
+            ),
+            GoRoute(
+              name: AppPage.settings.toName,
+              path: AppPage.settings.toPath,
+              builder: (context, state) => const SettingsScreen(),
+            ),
+          ]),
+      GoRoute(
+        name: AppPage.splash.toName,
+        path: AppPage.splash.toPath,
+        builder: (context, state) => const SplashScreen(),
+        // redirect: conditionSplash,
       ),
       GoRoute(
-        name: APP_PAGE.home.toName,
-        path: APP_PAGE.home.toPath,
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
-        name: APP_PAGE.login.toName,
-        path: APP_PAGE.login.toPath,
+        name: AppPage.login.toName,
+        path: AppPage.login.toPath,
         builder: (context, state) => const LoginScreen(),
       ),
       GoRoute(
-        name: APP_PAGE.splash.toName,
-        path: APP_PAGE.splash.toPath,
-        builder: (context, state) => const SplashScreen(),
-      ),
-      GoRoute(
-        name: APP_PAGE.settings.toName,
-        path: APP_PAGE.settings.toPath,
-        builder: (context, state) => const SettingsScreen(),
+        name: AppPage.register.toName,
+        path: AppPage.register.toPath,
+        builder: (context, state) => const RegisterScreen(),
       ),
     ],
-    redirect: (BuildContext context, GoRouterState state) {
-      final appState = context.watch<AppState>();
-      final isLoggedIn = appState.isLoggedIn;
+    redirect: (context, state) {
       final initialized = appState.initialized;
-
-      final loginScreen = state.namedLocation(APP_PAGE.login.toName);
-      final mainLayout = state.namedLocation(APP_PAGE.main.toName);
-      final splashScreen = state.namedLocation(APP_PAGE.splash.toName);
-
-      if (initialized == true) return splashScreen;
-      if (isLoggedIn != true) return loginScreen;
-
-      return mainLayout;
-    });
+      if (initialized) return AppPage.splash.toPath;
+      return null;
+    },
+  );
+}

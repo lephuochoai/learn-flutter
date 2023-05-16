@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_app/screens/auth/login/login.validator.dart';
 import 'package:my_app/store/index.dart';
 import 'package:my_app/ui/BaseGradientButton/BaseGradientButton.dart';
@@ -20,6 +21,9 @@ class _LoginState extends State<LoginScreen> {
   bool loading = false;
   final formKey = GlobalKey<FormState>();
 
+  // username: 'kminchelle',
+  // password: '0lelplR',
+
   void onSetShowPass() {
     setState(() {
       isHidePass = !isHidePass;
@@ -37,6 +41,11 @@ class _LoginState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
+
+    void onDirectRegisterScreen() {
+      // context.push(AppPage.register.toPath);
+      GoRouter.of(context).push('/register');
+    }
 
     Future onSubmitLogin() async {
       if (formKey.currentState!.validate()) {
@@ -145,12 +154,9 @@ class _LoginState extends State<LoginScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        Text('--- or ---'),
-                        SizedBox(
-                          height: 20,
-                        ),
                         BaseOutlineButton(
-                          onPressed: () {},
+                          onPressed: onDirectRegisterScreen,
+                          // onPressed: () => context.go(AppPage.register.toPath),
                           text: 'Register',
                         )
                       ],

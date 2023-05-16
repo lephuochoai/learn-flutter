@@ -1,18 +1,20 @@
-enum APP_PAGE { login, home, splash, main, settings }
+enum AppPage { login, home, splash, main, settings, register }
 
-extension AppPageExtension on APP_PAGE {
+extension AppPageExtension on AppPage {
   String get toPath {
     switch (this) {
-      case APP_PAGE.main:
-        return "/";
-      case APP_PAGE.home:
-        return "/home";
-      case APP_PAGE.login:
+      case AppPage.login:
         return "/login";
-      case APP_PAGE.splash:
+      case AppPage.register:
+        return "/register";
+      case AppPage.splash:
         return "/splash";
-      case APP_PAGE.settings:
-        return "/settings";
+      case AppPage.main:
+        return "/";
+      case AppPage.home:
+        return "home";
+      case AppPage.settings:
+        return "settings";
 
       default:
         return "/";
@@ -21,15 +23,17 @@ extension AppPageExtension on APP_PAGE {
 
   String get toName {
     switch (this) {
-      case APP_PAGE.main:
-        return "MAIN";
-      case APP_PAGE.home:
-        return "HOME";
-      case APP_PAGE.login:
+      case AppPage.login:
         return "LOGIN";
-      case APP_PAGE.splash:
+      case AppPage.register:
+        return "REGISTER";
+      case AppPage.splash:
         return "SPLASH";
-      case APP_PAGE.settings:
+      case AppPage.main:
+        return "MAIN";
+      case AppPage.home:
+        return "HOME";
+      case AppPage.settings:
         return "SETTINGS";
 
       default:
@@ -39,15 +43,17 @@ extension AppPageExtension on APP_PAGE {
 
   String get toTitle {
     switch (this) {
-      case APP_PAGE.main:
-        return "Main App";
-      case APP_PAGE.home:
-        return "My App";
-      case APP_PAGE.login:
-        return "My App Log In";
-      case APP_PAGE.splash:
+      case AppPage.login:
+        return "Login screen";
+      case AppPage.register:
+        return "Register screen";
+      case AppPage.splash:
         return "Splash screen";
-      case APP_PAGE.settings:
+      case AppPage.main:
+        return "Main layout";
+      case AppPage.home:
+        return "Home screen";
+      case AppPage.settings:
         return "Settings screen";
 
       default:

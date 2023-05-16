@@ -9,15 +9,16 @@ class BaseTextField extends StatelessWidget {
   final controller;
   final onChange;
 
-  const BaseTextField(
-      {super.key,
-      this.hint,
-      this.obscureText = false,
-      this.prefixIcon,
-      this.suffixIcon,
-      this.validator,
-      this.controller,
-      this.onChange});
+  const BaseTextField({
+    super.key,
+    this.hint,
+    this.obscureText = false,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.validator,
+    this.controller,
+    this.onChange,
+  });
 
   @override
   Widget build(BuildContext context) {

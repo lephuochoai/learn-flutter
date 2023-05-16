@@ -18,14 +18,14 @@ class AppState extends ChangeNotifier {
     isLoggedIn = status;
 
     final boxAuth = await Hive.openBox('auth');
-    boxAuth.put(BOX_KEY.isLoggedIn.toString(), status);
+    boxAuth.put(BoxKey.isLoggedIn.toString(), status);
     notifyListeners();
   }
 
   Future initialApp() async {
     final boxAuth = await Hive.openBox('auth');
     final getIsLoggedIn =
-        await boxAuth.get(BOX_KEY.isLoggedIn.toString()) ?? false;
+        await boxAuth.get(BoxKey.isLoggedIn.toString()) ?? false;
 
     isLoggedIn = getIsLoggedIn;
     initialized = false;

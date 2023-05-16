@@ -1,4 +1,4 @@
-enum BOX_KEY { isLoggedIn }
+enum BoxKey { isLoggedIn }
 
 class IsLoggedIn {
   bool isLoggedIn;

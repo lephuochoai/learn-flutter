@@ -19,23 +19,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
+    final initialized = appState.initialized;
 
-    if (appState.initialized) {
+    if (initialized) {
       Future.delayed(Duration(seconds: 2), () {
         appState.initialApp();
       });
     }
 
     return Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/bg-auth.png"),
-            fit: BoxFit.cover,
-          ),
+      constraints: const BoxConstraints.expand(),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/bg-auth.png"),
+          fit: BoxFit.cover,
         ),
-        child: SafeArea(
-          child: Text('Splash Screen 111'),
-        ));
+      ),
+    );
   }
 }
